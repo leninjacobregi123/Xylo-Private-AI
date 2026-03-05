@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+        <head>
+                <meta charset="utf-8" />
+                <link rel="icon" type="image/png" href="/static/favicon.png" crossorigin="use-credentials" />
+                <link rel="icon" type="image/png" href="/static/favicon-96x96.png" sizes="96x96" crossorigin="use-credentials" />
+                <link rel="icon" type="image/svg+xml" href="/static/favicon.svg" crossorigin="use-credentials" />
+                <link rel="shortcut icon" href="/static/favicon.ico" crossorigin="use-credentials" />
+                <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png" crossorigin="use-credentials" />
+                <link rel="manifest" href="/manifest.json" crossorigin="use-credentials" />
+                <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, interactive-widget=resizes-content" />
+                <meta name="theme-color" content="#171717" />
+                <meta name="robots" content="noindex,nofollow" />
+
+                <script src="/static/loader.js" defer crossorigin="use-credentials"></script>
+                <link rel="stylesheet" href="/static/custom.css" crossorigin="use-credentials" />
+
+                <title>Xylo</title>
+
+                <script>
+                        // THEME DETECTION SCRIPT (Restored)
+                        (() => {
+                                const metaThemeColorTag = document.querySelector('meta[name="theme-color"]');
+                                const prefersDarkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+                                if (!localStorage?.theme) {
+                                        localStorage.theme = 'system';
+                                }
+
+                                if (localStorage.theme === 'system') {
+                                        document.documentElement.classList.add(prefersDarkTheme ? 'dark' : 'light');
+                                        metaThemeColorTag.setAttribute('content', prefersDarkTheme ? '#171717' : '#ffffff');
+                                } else if (localStorage.theme === 'oled-dark') {
+                                        document.documentElement.style.setProperty('--color-gray-800', '#101010');
+                                        document.documentElement.style.setProperty('--color-gray-850', '#050505');
+                                        document.documentElement.style.setProperty('--color-gray-900', '#000000');
+                                        document.documentElement.style.setProperty('--color-gray-950', '#000000');
+                                        document.documentElement.classList.add('dark');
+                                        metaThemeColorTag.setAttribute('content', '#000000');
+                                } else if (localStorage.theme === 'light') {
+                                        document.documentElement.classList.add('light');
+                                        metaThemeColorTag.setAttribute('content', '#ffffff');
+                                } else if (localStorage.theme === 'her') {
+                                        document.documentElement.classList.add('her');
+                                        metaThemeColorTag.setAttribute('content', '#983724');
+                                } else {
+                                        document.documentElement.classList.add('dark');
+                                        metaThemeColorTag.setAttribute('content', '#171717');
+                                }
+
+                                window.matchMedia('(prefers-color-scheme: dark)').addListener((e) => {
+                                        if (localStorage.theme === 'system') {
+                                                if (e.matches) {
+                                                        document.documentElement.classList.add('dark');
+                                                        document.documentElement.classList.remove('light');
+                                                        metaThemeColorTag.setAttribute('content', '#171717');
+                                                } else {
+                                                        document.documentElement.classList.add('light');
+                                                        document.documentElement.classList.remove('dark');
+                                                        metaThemeColorTag.setAttribute('content', '#ffffff');
+                                                }
+                                        }
+                                });
+                        })();
+                </script>
+
+                <style type="text/css">
+                        #xylo-force-intro {
+                                position: fixed !important;
+                                z-index: 2147483647 !important;
+                                top: 0; left: 0; width: 100vw; height: 100vh;
+                                background: #000 !important;
+                                display: flex !important;
+                                justify-content: center;
+                                align-items: center;
+                                visibility: visible !important;
+                                opacity: 1 !important;
+                                overflow: hidden !important;
+                        }
+                        #xylo-force-intro video {
+                                width: 100% !important;
+                                height: 100% !important;
+                                object-fit: cover !important;
+                        }
+                        #xylo-force-intro.fade-out {
+                                opacity: 0 !important;
+                                transition: opacity 1s ease-out !important;
+                                pointer-events: none !important;
+                        }
+                        /* Hide app content while intro is playing */
+                        .xylo-locked body { overflow: hidden !important; }
+
+                        /* Branding CSS */
+                        .sidebar-logo, .login-logo, .navbar-logo {
+                                display: none !important;
+                        }
+                        /* Replace logo by hiding old one and showing background-image if needed */
+                        svg:has(path[d*="M12.5 12.5"]) { /* Common path fragment for default logo */
+                                display: none !important;
+                        }
+                </style>
+
+                <link rel="modulepreload" href="/_app/immutable/entry/start.DKcAWbvS.js">
+                <link rel="modulepreload" href="/_app/immutable/chunks/BwQcE_Pf.js">
+                <link rel="modulepreload" href="/_app/immutable/chunks/Dph7_zIp.js">
+                <link rel="modulepreload" href="/_app/immutable/chunks/D-dubyUK.js">
+                <link rel="modulepreload" href="/_app/immutable/entry/app.BEtU9vbG.js">
+        </head>
+
+        <body class="xylo-locked" data-sveltekit-preload-data="hover">
+                <div id="xylo-force-intro">
+                        <video id="xylo-video" autoplay muted playsinline>
+                                <source src="/static/intro.mp4" type="video/mp4">
+                        </video>
+                        <script>
+                                const xyloVideo = document.getElementById('xylo-video');
+                                const xyloOverlay = document.getElementById('xylo-force-intro');
+
+                                xyloVideo.onended = () => {
+                                        xyloOverlay.classList.add('fade-out');
+                                        setTimeout(() => {
+                                                xyloOverlay.remove();
+                                                document.body.classList.remove('xylo-locked');
+                                        }, 1000);
+                                };
+
+                                function replaceText() {
+                                        // Replace text in the body
+                                        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+                                        let node;
+                                        while (node = walker.nextNode()) {
+                                                if (node.nodeValue.includes('Open WebUI')) {
+                                                        node.nodeValue = node.nodeValue.replace(/Open WebUI/g, 'Xylo');
+                                                }
+                                        }
+                                        // Replace document title
+                                        if (document.title.includes('Open WebUI')) {
+                                                document.title = document.title.replace(/Open WebUI/g, 'Xylo');
+                                        }
+                                        // Ensure our logo is used everywhere
+                                        document.querySelectorAll('img[src*="logo"], img[src*="favicon"], img[alt*="WebUI"]').forEach(img => {
+                                                if (!img.src.includes('logo.jpeg') && !img.src.includes('/static/logo.png')) {
+                                                        img.src = '/static/logo.png';
+                                                }
+                                        });
+                                }
+                                setInterval(replaceText, 500);
+                        </script>
+                </div>
+
+                <div style="display: contents">
+                        <script>
+                                {
+                                        __sveltekit_11m1o59 = { base: "" };
+                                        const element = document.currentScript.parentElement;
+                                        Promise.all([
+                                                import("/_app/immutable/entry/start.DKcAWbvS.js"),
+                                                import("/_app/immutable/entry/app.BEtU9vbG.js")
+                                        ]).then(([kit, app]) => { kit.start(app, element); });
+                                }
+                        </script>
+                </div>
+        </body>
+</html>

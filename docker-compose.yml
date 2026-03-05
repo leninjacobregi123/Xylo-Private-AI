@@ -1,0 +1,63 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: xylo-engine
+    volumes:
+      - ./data/ollama:/root/.ollama
+    ports:
+      - "11434:11434"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: always
+
+  xylo-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: xylo-interface
+    volumes:
+      - ./data/webui:/app/backend/data
+      - ./assets/logo.jpeg:/app/build/favicon.png
+      - ./assets/logo.jpeg:/app/build/logo.svg
+      - ./assets/logo.jpeg:/app/build/static/favicon.png
+      - ./assets/logo.jpeg:/app/build/static/logo.png
+      - ./assets/logo.jpeg:/app/build/static/logo.svg
+      - ./assets/logo.jpeg:/app/build/static/favicon.svg
+      - ./assets/logo.jpeg:/app/build/static/favicon.ico
+      - ./assets/logo.jpeg:/app/build/static/favicon-96x96.png
+      - ./assets/logo.jpeg:/app/build/static/favicon-dark.png
+      - ./assets/logo.jpeg:/app/build/static/splash.png
+      - ./assets/logo.jpeg:/app/build/static/splash-dark.png
+      - ./assets/logo.jpeg:/app/build/static/apple-touch-icon.png
+      - ./assets/logo.jpeg:/app/build/static/web-app-manifest-192x192.png
+      - ./assets/logo.jpeg:/app/build/static/web-app-manifest-512x512.png
+      - ./assets/intro.mp4:/app/build/static/intro.mp4
+      - ./assets/index.html:/app/build/index.html
+    ports:
+      - "3001:8080"
+    environment:
+      - 'OLLAMA_BASE_URL=http://ollama:11434'
+      - 'WEBUI_SECRET_KEY=xylo-private-key-999'
+      - 'WEBUI_NAME=Xylo'
+      - 'CUSTOM_NAME=Xylo'
+      - 'WEBUI_URL=http://localhost:3001'
+      - 'WEBUI_FAVICON_URL=/static/favicon.png'
+      - 'WEBUI_LOGO_URL=/static/logo.png'
+      - 'RAG_EMBEDDING_MODEL='
+      - 'ENABLE_RAG=False'
+    depends_on:
+      - ollama
+    restart: always
+
+  xylo-tts:
+    image: rhasspy/wyoming-piper:latest
+    container_name: xylo-voice
+    command: --voice en_US-lessac-medium
+    volumes:
+      - ./data/tts:/data
+    ports:
+      - "10200:10200"
+    restart: always
