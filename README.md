@@ -1,8 +1,9 @@
 # Xylo System: Private Local Interface
 
+(https://github.com/user-attachments/assets/30f031df-9772-4ffb-b0e5-a309ea0df6ff)
 
-Uploading WhatsApp Video 2026-03-05 at 9.49.12 PM.mp4…
 
+https://github.com/user-attachments/assets/cd05dc17-178f-4734-be0d-e651c332f511
 
 
 Xylo is a unified, high-performance platform for private interaction and voice synthesis. Built for researchers and developers, it provides a seamless bridge between local hardware and sophisticated processing engines.
