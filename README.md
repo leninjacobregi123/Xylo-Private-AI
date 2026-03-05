@@ -2,8 +2,6 @@
 
 ![Xylo Private AI ](https://github.com/user-attachments/assets/348ccbaa-5d2a-450d-9ff7-38b6f6e92f7f)
 
-Xylo Private AI.mp4…
-
 Xylo is a unified, high-performance platform for private interaction and voice synthesis. Built for researchers and developers, it provides a seamless bridge between local hardware and sophisticated processing engines.
 
 ## Core Pillars
