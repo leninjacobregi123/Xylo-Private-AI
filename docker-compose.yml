@@ -34,7 +34,7 @@ services:
       - ./assets/logo.jpeg:/app/build/static/apple-touch-icon.png
       - ./assets/logo.jpeg:/app/build/static/web-app-manifest-192x192.png
       - ./assets/logo.jpeg:/app/build/static/web-app-manifest-512x512.png
-      - ./assets/intro.mp4:/app/build/static/intro.mp4
+      - ./assets/video.mp4:/app/build/static/intro.mp4
       - ./assets/index.html:/app/build/index.html
     ports:
       - "3001:8080"

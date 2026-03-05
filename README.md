@@ -1,6 +1,6 @@
 # Xylo System: Private Local Interface
 
-![Xylo System Preview](assets/intro.mp4)
+![Xylo System Preview](assets/video.mp4)
 
 Xylo is a unified, high-performance platform for private interaction and voice synthesis. Built for researchers and developers, it provides a seamless bridge between local hardware and sophisticated processing engines.
 
