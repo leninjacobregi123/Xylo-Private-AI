@@ -4,6 +4,9 @@
 
 Xylo is a unified, high-performance platform for private interaction and voice synthesis. Built for researchers and developers, it provides a seamless bridge between local hardware and sophisticated processing engines.
 
+Uploading Xylo.mp4…
+
+
 ## Core Pillars
 
 ### 1. Absolute Privacy & Localization
